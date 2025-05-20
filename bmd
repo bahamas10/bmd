@@ -92,10 +92,29 @@ format-header() {
 		6) output+='┊ ';;
 		*) fatal "unknown header level: $level";;
 	esac
-	output+=$text$RST
+
+	# handle any ticks in the title
+	local c i
+	local in_backticks=0
+	for ((i = 0; i < ${#text}; i++)); do
+		c=${text:i:1}
+
+		if [[ $c == '`' ]]; then
+			if ((in_backticks == 0)); then
+				output+=$COLOR2
+			else
+				output+=$COLOR3
+			fi
+			((in_backticks ^= 1))
+		else
+			output+=$c
+		fi
+	done
+	output+=$RST
 
 	echo "$output"
 }
+
 
 # print the usage message
 usage() {
