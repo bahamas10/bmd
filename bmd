@@ -201,6 +201,12 @@ for ((i = 0; i < ${#input[@]}; i++)); do
 	if ((in_italics == 1)); then
 		output+=$ITALICS
 	fi
+
+	if ((in_link_text == 1)); then
+		output+=$COLOR1
+	elif ((in_link_url == 1)); then
+		output+=$COLOR2
+	fi
 	for ((j = 0; j < ${#line}; j++)); do
 		c0=${line:j-1:1}
 		c=${line:j:1}
