@@ -55,7 +55,7 @@ lpad() {
 format-code-block() {
 	local lang=$1
 
-	local args=(bat -Pp --color always --theme 'Visual Studio Dark+')
+	local args=(bat -Pp --color always --theme 'base16')
 	if [[ -n $lang ]]; then
 		args+=(--language "$lang")
 	fi
@@ -249,7 +249,7 @@ for ((i = 0; i < ${#input[@]}; i++)); do
 			in_link_text=1
 			output+=$COLOR1
 		elif [[ $c == ']' ]]; then
-			true
+			output+=' '
 		elif ((in_link_text == 1)) && [[ $c == '(' ]]; then
 			in_link_text=0
 			in_link_url=1
