@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# TODO: need better tests lol
+
+set -ex
+../bmd ../README.md >/dev/null
+../bmd <../README.md >/dev/null
+
+exit 0

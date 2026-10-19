@@ -5,3 +5,7 @@ all:
 .PHONY: check
 check:
 	./tools/style-check bmd *.md
+
+.PHONY: test
+test:
+	cd ./tests && ./runtests

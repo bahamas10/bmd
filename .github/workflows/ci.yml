@@ -24,3 +24,6 @@ jobs:
 
       - name: Style Checks
         run: make check
+
+      - name: Basic Tests
+        run: make test
