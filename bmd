@@ -55,13 +55,20 @@ lpad() {
 format-code-block() {
 	local lang=$1
 
-	local args=(bat -Pp --color always --theme 'base16')
-	if [[ -n $lang ]]; then
-		args+=(--language "$lang")
+	local -a args
+
+	if ((USE_BAT)); then
+		args=(bat -Pp --color always --theme 'base16')
+		if [[ -n $lang ]]; then
+			args+=(--language "$lang")
+		fi
+		args+=('-')
+	else
+		args=(cat)
 	fi
-	args+=('-')
 
 	debug "formatting code (lang=$lang): " "${args[@]}"
+
 	"${args[@]}" | lpad '  '
 }
 
@@ -139,8 +146,14 @@ while getopts 'hv' opt; do
 done
 shift "$((OPTIND - 1))"
 
-code_re='^``` ?(.*)$'
-header_re='^(#{1,6}) (.+)$'
+# check if code highlighting is supported
+if command -v bat2 &>/dev/null; then
+	debug 'bat(1) available for code highlighting'
+	USE_BAT=1
+else
+	echo '[warn] bat(1) not available - code highlighting disabled' >&2
+	USE_BAT=0
+fi
 
 # read entire file into memory
 file=${1:-/dev/stdin}
@@ -153,6 +166,8 @@ else
 	done
 fi
 
+code_re='^``` ?(.*)$'
+header_re='^(#{1,6}) (.+)$'
 in_code_block=0
 buffer=()
 code_lang=
