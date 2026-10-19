@@ -115,7 +115,6 @@ format-header() {
 	echo "$output"
 }
 
-
 # print the usage message
 usage() {
 	local prog=${0##*/}
@@ -124,8 +123,8 @@ usage() {
 	Usage: $prog [-v] [filename]
 
 	Options:
-	  -h      print this message and exit
-	  -v      increase verbosity - add more for more output
+	    -h      print this message and exit
+	    -v      increase verbosity - add more for more output
 	EOF
 	echo "$msg"
 }
@@ -174,7 +173,8 @@ for ((i = 0; i < ${#input[@]}; i++)); do
 		else
 			# we finished reading code
 			trace "finished code block"
-			printf '%s\n' "${buffer[@]}" | format-code-block "$code_lang"
+			printf '%s\n' "${buffer[@]}" \
+			    | format-code-block "$code_lang"
 
 		fi
 
@@ -268,7 +268,8 @@ for ((i = 0; i < ${#input[@]}; i++)); do
 			((in_bold ^= 1))
 			((j++))
 		elif [[ $c == '*' && $c0 != "\\" ]] ||
-		     [[ $c == '_' && $c0 != "\\" ]]; then
+		    [[  $c == '_' && $c0 != "\\" ]]; then
+
 			if ((in_italics == 0)); then
 				output+=$ITALICS
 			else
