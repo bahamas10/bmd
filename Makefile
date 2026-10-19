@@ -4,7 +4,7 @@ all:
 
 .PHONY: check
 check:
-	./tools/style-check bmd *.md
+	./tools/style-check bmd *.md tests/*
 
 .PHONY: test
 test:
