@@ -32,6 +32,16 @@ Options:
   -v      increase verbosity - add more for more output
 ```
 
+Checks
+------
+
+Run style checks with:
+
+```
+make check
+...
+```
+
 License
 -------
 
